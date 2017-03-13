@@ -10,6 +10,7 @@
 <jsp:useBean id="genres" scope="application" class="com.github.ivanovskij.dao.models.GenresDAO"/>
 <jsp:useBean id="musics" scope="request" class="com.github.ivanovskij.dao.models.MusicsDAO"/>
 <jsp:useBean id="albums" scope="request" class="com.github.ivanovskij.dao.models.AlbumsDAO"/>
+<jsp:useBean id="searchListBox" scope="application" class="com.github.ivanovskij.controllers.SearchListboxController"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,8 +26,8 @@
                     <img src="img/usa.png" alt="eng" width="16" height="13">
                 </div>
                 <div class="soc-icon">
-                    <img src="img/vk.jpg" alt="vk" width="16" height="16">
-                    <img src="img/facebook.jpg" alt="facebook" width="16" height="16">
+                    <a href="#"><img src="img/vk.jpg" alt="vk" width="16" height="16"></a>
+                    <a href="#"><img src="img/facebook.jpg" alt="facebook" width="16" height="16"></a>
                 </div>
                 <!--<div class="user">
                         <a href="userProfile" class="user-name">
@@ -48,22 +49,21 @@
 
         <div id="wrap">
             <header>
-
+                <!-- logotype -->
             </header>
 
             <div class="search">
                 <form>
-                    <input type="search" class="search-text" name="search" placeholder="Поиск по музыке... ">
+                    <input type="search" class="search-text" name="search" placeholder="Поиск музыки...">
                     <select class="select-box">
-                        <option>По названию</option>
-                        <option>По автору</option>
+                        <c:forEach var="searchLb" items="${searchListBox.getSearchListbox()}">
+                            <option><c:out value="${searchLb}"/></option>
+                        </c:forEach>
                     </select>
                     <input type="submit" class="button" name="submit" value="Поиск">
                 </form>
                 <div class="clear"></div>
             </div>
-
-            
 
             <div class="popularity">
                 <ul>

@@ -54,6 +54,7 @@ div.lang img {
 }
 
 div.soc-icon {
+    background: #D12A27;
     margin-left: 90px;
 }
 div.soc-icon img {
@@ -280,7 +281,8 @@ div.left-content {
 }
 
 div.new-musics h2, div.new-albums h2 {
-    border-bottom: 1px solid #e2e2e2;
+    background: #e2e2e2;
+    box-shadow: inset 0 -1px 3px #c8c8c8;
     color: #333333;
     font-size: 19px;
     margin: 10px 10px 10px 10px;
@@ -312,11 +314,20 @@ div.new-albums {
 }
 
 div.new-albums li {
-    margin-left: 10px;
-    margin-bottom: 15px;
+    border: 1px solid #e2e2e2;
+    height: 151px;
+    margin: 0 10px 10px 10px;
+    padding-top: 4px;
+    padding-left: 4px;
 }
 div.new-albums li:hover {
     background: #CEEEFB;
+}
+div.new-albums li:nth-child(even) {
+    background: #F8F8F8;
+}
+div.new-albums li:nth-child(even):hover {
+    background: #F0F0F0;
 }
 
 div.new-albums li img {
@@ -329,7 +340,7 @@ div.new-albums li p {
 }
 
 
-/* ========================== CONTENT =================== */
+/* ========================== FOOTER =================== */
 footer {
     background: #D12A27;
     box-shadow: inset 0 1px 3px #fff;
