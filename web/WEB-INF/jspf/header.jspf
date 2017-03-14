@@ -1,0 +1,45 @@
+<%@ page pageEncoding="UTF-8" %>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Главная</title>
+        <link rel="stylesheet" type="text/css" href="../css/main.css">
+        <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="top-panel">
+            <div class="top-panel-wrap">
+                <div class="lang">
+                    <img src="img/rus.png" alt="rus" width="16" height="13">
+                    <img src="img/usa.png" alt="eng" width="16" height="13">
+                </div>
+                <div class="soc-icon">
+                    <a href="#"><img src="../img/vk.jpg" alt="vk" width="16" height="16"></a>
+                    <a href="#"><img src="../img/facebook.jpg" alt="facebook" width="16" height="16"></a>
+                </div>
+                <!--<div class="user">
+                        <a href="userProfile" class="user-name">
+                                <p>User</p>
+                        </a>
+                        <a href="logout" class="logout">Выход</a>
+                </div>
+                -->
+                <div class="auth">
+                    <form action="" method="POST">
+                        <input type="text" class="userlogin" name="userlogin" placeholder="логин">
+                        <input type="password" class="userpass" name="userpass" placeholder="пароль">
+                        <input type="submit" class="btn-login" name="submit" value="Войти">
+                    </form>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div id="wrap">
+            <header>
+                <!-- logotype -->
+            </header>

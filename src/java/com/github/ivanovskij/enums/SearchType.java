@@ -12,6 +12,6 @@ package com.github.ivanovskij.enums;
 public enum SearchType {
     
     MUSIC_NAME,
-    AUTHOR,
+    ALBUMS,
     
 }

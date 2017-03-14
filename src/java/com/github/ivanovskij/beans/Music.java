@@ -5,11 +5,13 @@
  */
 package com.github.ivanovskij.beans;
 
+import java.io.Serializable;
+
 /**
  *
  * @author IOAdmin
  */
-public class Music {
+public class Music implements Serializable {
     
     private long idMusic;
     private String name;
@@ -49,5 +51,10 @@ public class Music {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    @Override
+    public String toString() {
+        return "Music{" + "idMusic=" + idMusic + ", name=" + name + ", albums=" + albums + ", genre=" + genre + '}';
     }
 }

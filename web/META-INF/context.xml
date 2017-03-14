@@ -1,14 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/MusicJSP">
-    
-    <Resource name="jdbc/shmusic" 
-              auth="Container" 
-              type="javax.sql.DataSource"
-              maxActive="50" 
-              maxIdle="30" 
-              maxWait="10000"
-              username="root" 
-              password="root"
-              driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/shmusic"/>
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="50" maxIdle="30" maxWait="10000" name="jdbc/shmusic" password="root" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/shmusic" username="root"/>
 </Context>

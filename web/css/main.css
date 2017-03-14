@@ -186,7 +186,7 @@ div.letter-search {
 
 div.letter-search .rus-letters {
     font-size: 0; 	/* for display: inline-blocl; clear space */
-    margin-left: 6px;
+    text-align: center;
 }
 
 div.letter-search li:last-child {
@@ -208,7 +208,7 @@ div.letter-search li a {
     display: block;
     padding: 7px 5px;
     text-align: center;
-    width: 19px;
+    width: 23px;
 }
 
 div.letter-search .eng-letters {

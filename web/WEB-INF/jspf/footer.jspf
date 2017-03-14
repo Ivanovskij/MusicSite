@@ -1,0 +1,12 @@
+<%@ page pageEncoding="UTF-8" %>
+
+</div> <!-- end wrap -->
+
+        <footer>
+            <div class="footer-wrap">
+                <p>&copy 2017, Music Online!
+            </div>
+        </footer>
+    </body>
+</html>
+

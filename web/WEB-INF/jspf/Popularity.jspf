@@ -1,0 +1,7 @@
+<%@ page pageEncoding="UTF-8" %>
+<div class="popularity">
+    <ul>
+        <li><a href="popular">Популярные</a></li>
+        <li><a href="rating">Рейтинг</a></li>
+    </ul>
+</div>

@@ -24,7 +24,7 @@ public class SearchListboxController {
                 "com.github.ivanovskij.nls.messages");
         searchListbox.clear();
         searchListbox.put(bundle.getString("search_music_name"), SearchType.MUSIC_NAME);
-        searchListbox.put(bundle.getString("search_author_name"), SearchType.AUTHOR);
+        searchListbox.put(bundle.getString("search_albums_name"), SearchType.ALBUMS);
     }
 
     public static Set<String> getSearchListbox() {

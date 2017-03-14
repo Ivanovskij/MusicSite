@@ -6,14 +6,38 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>pages/musics.jsp</welcome-file>
     </welcome-file-list>
-    
-    <!-- ==== Соединение БД ===== -->
+    <!-- ================ Соединение БД ================= -->
     <resource-ref>
-	<description>MySQL Datasource</description>
-	<res-ref-name>jdbc/shmusic</res-ref-name>
-	<res-type>javax.sql.DataSource</res-type>
-	<res-auth>Container</res-auth>
-  </resource-ref>
+        <description>MySQL Datasource</description>
+        <res-ref-name>jdbc/shmusic</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+    <!-- ================ СЕРВЛЕТЫ ================= -->
+    <!-- *** MusicsController *** -->
+    <servlet>
+        <servlet-name>MusicsController</servlet-name>
+        <servlet-class>com.github.ivanovskij.controllers.servlets.MusicsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MusicsController</servlet-name>
+        <url-pattern>/MusicsController</url-pattern>
+    </servlet-mapping>
+    
+    <!-- ================ ФИЛЬТРЫ ================= -->
+    <!-- *** InitialDataFilter *** -->
+    
+    
+    <!-- ================ ШАБЛОНЫ ================= -->
+    <jsp-config>
+        <jsp-property-group>
+            <display-name>header_footer</display-name>
+            <url-pattern>/pages/*</url-pattern>
+            <page-encoding>utf-8</page-encoding>
+            <include-prelude>/WEB-INF/jspf/header.jspf</include-prelude>
+            <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
+        </jsp-property-group>
+    </jsp-config>
 </web-app>
