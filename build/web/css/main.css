@@ -64,30 +64,30 @@ div.soc-icon img {
 }
 
 /********** user authorize ***********/
-/*div.user {
-        float: right;
-        margin-top: 10px;
-        width: 200px;
+div.user {
+    float: right;
+    margin-top: 10px;
+    width: 200px;
 }
 
 div.user .user-name {
-        float: left;
+    float: left;
 }
 
 div.user .user-name p {
-        background: url(../img/user.jpg) no-repeat 0%;
-        color: #fff;
-        padding-left: 22px;
+    background: url(../img/user.jpg) no-repeat 0%;
+    color: #fff;
+    padding-left: 22px;
 }
 
 div.user .logout {
-        color: #fff;
-        float: right;
-        text-decoration: underline;
+    color: #fff;
+    float: right;
+    text-decoration: underline;
 }
 div.user .logout:hover {
-        text-decoration: none;
-}*/
+    text-decoration: none;
+}
 
 /**** user not authorize *****/
 div.auth {

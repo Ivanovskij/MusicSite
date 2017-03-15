@@ -1,0 +1,11 @@
+<%@ page pageEncoding="UTF-8" %>
+<jsp:useBean id="genres" scope="application" class="com.github.ivanovskij.dao.models.GenresDAO"/>
+
+<div class="right-menu">
+    <h2 class="search-by-genres">Поиск по жанрам:</h2>
+    <ul>
+        <c:forEach var="g" items="${genres.getGenreList()}">
+            <li><a href="${pageContext.request.contextPath}/MusicsController?genre_id=${g.idGenre}"><c:out value="${g.name}"/></a></li>
+        </c:forEach>
+    </ul>
+</div>

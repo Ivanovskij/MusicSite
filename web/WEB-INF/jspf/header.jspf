@@ -6,6 +6,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Главная</title>
         <link rel="stylesheet" type="text/css" href="../css/main.css">
+        <script type="text/javascript" src="../js/handler.js"></script>
         <!--[if lt IE 9]>
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
@@ -21,17 +22,18 @@
                     <a href="#"><img src="../img/vk.jpg" alt="vk" width="16" height="16"></a>
                     <a href="#"><img src="../img/facebook.jpg" alt="facebook" width="16" height="16"></a>
                 </div>
-                <!--<div class="user">
-                        <a href="userProfile" class="user-name">
-                                <p>User</p>
-                        </a>
-                        <a href="logout" class="logout">Выход</a>
+                
+                <div id="user" class="user" style="display: ${displayUser}">
+                    <a href="userProfile" class="user-name">
+                        <p>${userAuth.name}</p>
+                    </a>
+                    <a href="logout" class="logout">Выход</a>
                 </div>
-                -->
-                <div class="auth">
-                    <form action="" method="POST">
-                        <input type="text" class="userlogin" name="userlogin" placeholder="логин">
-                        <input type="password" class="userpass" name="userpass" placeholder="пароль">
+
+                <div id="auth" class="auth" style="display: ${displayAuth}">
+                    <form action="${pageContext.request.contextPath}/UserAuthController" method="POST">
+                        <input type="text" id="userlogin" class="userlogin" name="userlogin" placeholder="логин">
+                        <input type="password" id="userpass" class="userpass" name="userpass" placeholder="пароль">
                         <input type="submit" class="btn-login" name="submit" value="Войти">
                     </form>
                 </div>
