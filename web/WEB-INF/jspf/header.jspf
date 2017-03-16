@@ -1,4 +1,7 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page pageEncoding="UTF-8" %>
+<fmt:setLocale value="${currentLocale}"/>
+<fmt:setBundle basename="com.github.ivanovskij.nls.messages" var="msg" scope="session"/>
 
 <!DOCTYPE html>
 <html>
@@ -15,8 +18,8 @@
         <div class="top-panel">
             <div class="top-panel-wrap">
                 <div class="lang">
-                    <img src="img/rus.png" alt="rus" width="16" height="13">
-                    <img src="img/usa.png" alt="eng" width="16" height="13">
+                    <a href="${pageContext.request.contextPath}/LocaleChangerController?lang=ru"><img src="../img/rus.png" alt="rus" width="16" height="13"></a>
+                    <a href="${pageContext.request.contextPath}/LocaleChangerController?lang=en"><img src="../img/usa.png" alt="eng" width="16" height="13"></a>
                 </div>
                 <div class="soc-icon">
                     <a href="#"><img src="../img/vk.jpg" alt="vk" width="16" height="16"></a>
@@ -27,14 +30,14 @@
                     <a href="userProfile" class="user-name">
                         <p>${userAuth.name}</p>
                     </a>
-                    <a href="logout" class="logout">Выход</a>
+                        <a href="logout" class="logout"><fmt:message bundle="${msg}" key="top.logout"/></a>
                 </div>
 
                 <div id="auth" class="auth" style="display: ${displayAuth}">
                     <form action="${pageContext.request.contextPath}/UserAuthController" method="POST">
-                        <input type="text" id="userlogin" class="userlogin" name="userlogin" placeholder="логин">
-                        <input type="password" id="userpass" class="userpass" name="userpass" placeholder="пароль">
-                        <input type="submit" class="btn-login" name="submit" value="Войти">
+                        <input type="text" id="userlogin" class="userlogin" name="userlogin" placeholder="<fmt:message bundle="${msg}" key="top.username"/>">
+                        <input type="password" id="userpass" class="userpass" name="userpass" placeholder="<fmt:message bundle="${msg}" key="top.userpass"/>">
+                        <input type="submit" class="btn-login" name="submit" value="<fmt:message bundle="${msg}" key="top.btnLogin"/>">
                     </form>
                 </div>
             </div>

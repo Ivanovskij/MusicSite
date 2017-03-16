@@ -2,11 +2,11 @@
 <jsp:useBean id="albums" scope="request" class="com.github.ivanovskij.dao.models.AlbumsDAO"/>
 
 <div class="new-albums">
-    <h2>Новые альбомы:</h2>
+    <h2><fmt:message bundle="${msg}" key="content.newAlbums"/></h2>
     <ul>
         <c:forEach var="alb" items="${albums.getAllAlbums()}">
             <li>
-                <img src="img/prev.jpg" alt="prev" width="100" height="147">
+                <img src="../img/prev.jpg" alt="prev" width="100" height="147">
                 <p>
                     <strong>Имя:</strong>
             <c:out value="${alb.name}"/>

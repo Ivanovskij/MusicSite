@@ -21,10 +21,10 @@ public class SearchListboxController {
 
     public SearchListboxController() {
         ResourceBundle bundle = ResourceBundle.getBundle(
-                "com.github.ivanovskij.nls.messages");
+                "com.github.ivanovskij.nls.messages"); // тут надо как то взять текущую локаль
         searchListbox.clear();
-        searchListbox.put(bundle.getString("search_music_name"), SearchType.MUSIC_NAME);
-        searchListbox.put(bundle.getString("search_albums_name"), SearchType.ALBUMS);
+        searchListbox.put(bundle.getString("search.per_music_name"), SearchType.MUSIC_NAME);
+        searchListbox.put(bundle.getString("search.per_albums_name"), SearchType.ALBUMS);
     }
 
     public static Set<String> getSearchListbox() {

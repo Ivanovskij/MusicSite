@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet-mapping>
+        <servlet-name>LocaleChangerController</servlet-name>
+        <url-pattern>/LocaleChangerController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -23,6 +27,10 @@
     <servlet>
         <servlet-name>UserAuthController</servlet-name>
         <servlet-class>com.github.ivanovskij.controllers.UserAuthController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LocaleChangerController</servlet-name>
+        <servlet-class>com.github.ivanovskij.controllers.servlets.LocaleChangerController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MusicsController</servlet-name>
@@ -51,4 +59,9 @@
             <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
         </jsp-property-group>
     </jsp-config>
+    
+    <context-param>
+        <param-name>currentLocale</param-name>
+        <param-value>ru</param-value>
+    </context-param>
 </web-app>

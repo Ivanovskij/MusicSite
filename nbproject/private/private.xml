@@ -2,6 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/F:/Programming/Java/Projects-Web/Musics/MusicJSP/web/WEB-INF/jspf/header.jspf</file>
+            <file>file:/F:/Programming/Java/Projects-Web/Musics/MusicJSP/src/java/com/github/ivanovskij/nls/messages.properties</file>
+            <file>file:/F:/Programming/Java/Projects-Web/Musics/MusicJSP/web/pages/musics.jsp</file>
+            <file>file:/F:/Programming/Java/Projects-Web/Musics/MusicJSP/src/java/com/github/ivanovskij/controllers/SearchListboxController.java</file>
+        </group>
     </open-files>
 </project-private>

@@ -127,9 +127,9 @@ div.auth {
 
 /* ========================== HEADER =================== */
 header {
-    background: url(../img/bg-header.jpg) no-repeat;
+    background: url(../img/bg-header.jpg) no-repeat 0% 40%;
     display: block;
-    height: 216px;
+    height: 130px;
     margin-bottom: 20px;
 }
 
@@ -232,6 +232,7 @@ div.popularity {
 
 div.popularity li {
     display: inline-block;
+    margin-right: 10px;
 }
 
 

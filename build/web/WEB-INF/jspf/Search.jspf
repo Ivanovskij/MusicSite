@@ -1,15 +1,16 @@
 <%@ page pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:useBean id="searchListBox" scope="application" class="com.github.ivanovskij.controllers.SearchListboxController"/>
 
 <div class="search">
     <form action="${pageContext.request.contextPath}/MusicsController" method="GET">
-        <input type="search" class="search-text" name="search" value="${searchStr}" placeholder="Поиск музыки...">
+        <input type="search" class="search-text" name="search" value="${searchStr}" placeholder="<fmt:message bundle="${msg}" key="search.search_music"/>">
         <select class="select-box" name="searchType">
             <c:forEach var="searchLb" items="${searchListBox.getSearchListbox()}">
                 <option><c:out value="${searchLb}"/></option>
             </c:forEach>
         </select>
-        <input type="submit" class="button" name="submit" value="Поиск">
+        <input type="submit" class="button" name="submit" value="<fmt:message bundle="${msg}" key="search.btnSearch"/>">
     </form>
     <div class="clear"></div>
 </div>

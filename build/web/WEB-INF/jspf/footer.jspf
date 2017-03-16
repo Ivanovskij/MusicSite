@@ -4,7 +4,7 @@
 
         <footer>
             <div class="footer-wrap">
-                <p>&copy 2017, Music Online!
+                <p>&copy <fmt:message bundle="${msg}" key="footer.copyright"/></p>
             </div>
         </footer>
     </body>
