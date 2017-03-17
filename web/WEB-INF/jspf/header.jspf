@@ -30,7 +30,7 @@
                     <a href="userProfile" class="user-name">
                         <p>${userAuth.name}</p>
                     </a>
-                        <a href="logout" class="logout"><fmt:message bundle="${msg}" key="top.logout"/></a>
+                        <a href="${pageContext.request.contextPath}/UserAuthController?logout=true" class="logout"><fmt:message bundle="${msg}" key="top.logout"/></a>
                 </div>
 
                 <div id="auth" class="auth" style="display: ${displayAuth}">

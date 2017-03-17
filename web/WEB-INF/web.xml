@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    <servlet-mapping>
-        <servlet-name>LocaleChangerController</servlet-name>
-        <url-pattern>/LocaleChangerController</url-pattern>
-    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -40,14 +36,26 @@
         <servlet-name>UserAuthController</servlet-name>
         <url-pattern>/UserAuthController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LocaleChangerController</servlet-name>
+        <url-pattern>/LocaleChangerController</url-pattern>
+    </servlet-mapping>
     <!-- ================ ФИЛЬТРЫ ================= -->
     <filter>
         <filter-name>AttributesToSessionFilters</filter-name>
         <filter-class>com.github.ivanovskij.filters.AttributesToSessionFilters</filter-class>
-    </filter>
+    </filter> 
     <filter-mapping>
         <filter-name>AttributesToSessionFilters</filter-name>
         <url-pattern>/pages/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>CheckSessionFilter</filter-name>
+        <filter-class>com.github.ivanovskij.filters.CheckSessionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CheckSessionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
     <!-- ================ ШАБЛОН ================= -->
     <jsp-config>
@@ -59,7 +67,6 @@
             <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
         </jsp-property-group>
     </jsp-config>
-    
     <context-param>
         <param-name>currentLocale</param-name>
         <param-value>ru</param-value>

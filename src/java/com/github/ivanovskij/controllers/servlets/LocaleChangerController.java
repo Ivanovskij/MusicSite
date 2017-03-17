@@ -22,6 +22,8 @@ public class LocaleChangerController extends HttpServlet {
     private static final String PAGE_SUCCESS = "pages/musics.jsp";
     private static final String PAGE_ERROR = "error.jsp";
     
+    private static final String ATTRIBUTE_MODEL_LOCALE = "currentLocale";
+    
     private Locale currentLocale = new Locale("ru");
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -30,7 +32,7 @@ public class LocaleChangerController extends HttpServlet {
         try {
             if (request.getParameter("lang") != null && isLocale(request)) {
                 currentLocale = new Locale(request.getParameter("lang"));
-                request.getSession().setAttribute("currentLocale", currentLocale);
+                request.getSession().setAttribute(ATTRIBUTE_MODEL_LOCALE, currentLocale);
                 response.sendRedirect(PAGE_SUCCESS);
                 return;
             }

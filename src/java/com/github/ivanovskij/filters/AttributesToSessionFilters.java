@@ -16,7 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -44,9 +43,9 @@ public class AttributesToSessionFilters implements Filter {
         if (session == null || session.isNew()) {
             session.setAttribute(ATTRIBUTE_MODEL_DIV_USER, DISPLAY_DIV_AUTH_NONE);
             session.setAttribute(ATTRIBUTE_MODEL_DIV_AUTH, DISPLAY_DIV_AUTH_BLOCK);
+            
             final MusicsDAO musicsDAO = new MusicsDAO();
-            // -1 - return all musics from db
-            List<Music> listMusics = musicsDAO.getMusicsByGenre(-1);
+            List<Music> listMusics = musicsDAO.getAllMusics();
             session.setAttribute(ATTRIBUTE_MODEL_TO_VIEW, listMusics);
         }
         
