@@ -1,0 +1,12 @@
+<%@ page pageEncoding="UTF-8" %>
+
+</div> <!-- end wrap -->
+
+        <footer>
+            <div class="footer-wrap">
+                <p>&copy <fmt:message bundle="${msg}" key="footer.copyright"/></p>
+            </div>
+        </footer>
+    </body>
+</html>
+

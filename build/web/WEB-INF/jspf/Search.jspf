@@ -12,5 +12,4 @@
         </select>
         <input type="submit" class="button" name="submit" value="<fmt:message bundle="${msg}" key="search.btnSearch"/>">
     </form>
-    <div class="clear"></div>
 </div>

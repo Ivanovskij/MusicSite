@@ -11,8 +11,7 @@ package com.github.ivanovskij.utils;
  */
 public class LetterSearchList {
 
-    private static final Character[] lettersRus = new Character[29];
-    private static final Character[] lettersEng = new Character[26];
+    private static final Character[] lettersRus = new Character[30];
 
     public Character[] getRusLetters() {
         lettersRus[0] = 'А';
@@ -44,38 +43,8 @@ public class LetterSearchList {
         lettersRus[26] = 'Э';
         lettersRus[27] = 'Ю';
         lettersRus[28] = 'Я';
+        lettersRus[29] = '?';
 
         return lettersRus;
-    }
-    
-    public Character[] getEngLetters() {
-        lettersEng[0] = 'A';
-        lettersEng[1] = 'B';
-        lettersEng[2] = 'C';
-        lettersEng[3] = 'D';
-        lettersEng[4] = 'E';
-        lettersEng[5] = 'F';
-        lettersEng[6] = 'G';
-        lettersEng[7] = 'H';
-        lettersEng[8] = 'I';
-        lettersEng[9] = 'J';
-        lettersEng[10] = 'K';
-        lettersEng[11] = 'L';
-        lettersEng[12] = 'M';
-        lettersEng[13] = 'N';
-        lettersEng[14] = 'O';
-        lettersEng[15] = 'P';
-        lettersEng[16] = 'Q';
-        lettersEng[17] = 'R';
-        lettersEng[18] = 'S';
-        lettersEng[19] = 'T';
-        lettersEng[20] = 'U';
-        lettersEng[21] = 'V';
-        lettersEng[22] = 'W';
-        lettersEng[23] = 'X';
-        lettersEng[24] = 'Y';
-        lettersEng[25] = 'Z';
-        
-        return lettersEng;
     }
 }

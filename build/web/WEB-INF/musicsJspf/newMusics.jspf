@@ -1,0 +1,10 @@
+<%@ page pageEncoding="UTF-8" %>
+
+<div class="new-musics">
+    <h2><fmt:message bundle="${msg}" key="content.newMusics"/></h2>
+    <ul>
+        <c:forEach var="m" items="${listMusics}">
+            <li><a href="musics?music_id=${m.idMusic}"><c:out value="${m.name}"/></a></li>
+        </c:forEach>
+    </ul>
+</div>

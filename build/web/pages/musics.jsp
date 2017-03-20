@@ -18,7 +18,6 @@
     <div class="left-content">
         <%@include file="../WEB-INF/jspf/newMusics.jspf" %>
         <%@include file="../WEB-INF/jspf/newAlbums.jspf" %>
-        <div class="clear"></div>
     </div>
     <div class="clear"></div>
 </content>

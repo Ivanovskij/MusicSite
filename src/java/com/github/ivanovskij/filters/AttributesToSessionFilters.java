@@ -44,7 +44,7 @@ public class AttributesToSessionFilters implements Filter {
             session.setAttribute(ATTRIBUTE_MODEL_DIV_USER, DISPLAY_DIV_AUTH_NONE);
             session.setAttribute(ATTRIBUTE_MODEL_DIV_AUTH, DISPLAY_DIV_AUTH_BLOCK);
             
-            final MusicsDAO musicsDAO = new MusicsDAO();
+            final MusicsDAO musicsDAO = new MusicsDAO(); 
             List<Music> listMusics = musicsDAO.getAllMusics();
             session.setAttribute(ATTRIBUTE_MODEL_TO_VIEW, listMusics);
         }

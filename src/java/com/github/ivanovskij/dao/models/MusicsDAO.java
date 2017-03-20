@@ -6,7 +6,10 @@
 package com.github.ivanovskij.dao.models;
 
 import com.github.ivanovskij.beans.Music;
+import com.github.ivanovskij.dao.BeanDao;
 import com.github.ivanovskij.dao.ConnectionDAO;
+import com.github.ivanovskij.dao.exception.DaoBusinessException;
+import com.github.ivanovskij.dao.exception.NoSuchBeanException;
 import com.github.ivanovskij.enums.SearchType;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,7 +23,7 @@ import javax.naming.NamingException;
  *
  * @author IOAdmin
  */
-public class MusicsDAO {
+public class MusicsDAO implements BeanDao {
 
     private final List<Music> musicList = new ArrayList<>();
 
@@ -103,4 +106,13 @@ public class MusicsDAO {
         return getMusics(generalQuery.toString());
     }
 
+    @Override
+    public Object selectById(long id) throws NoSuchBeanException, DaoBusinessException {
+        return null;
+    }
+
+    @Override
+    public List selectAll() throws DaoBusinessException {
+        return getAllMusics();
+    }
 }

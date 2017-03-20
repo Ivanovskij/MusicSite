@@ -5,13 +5,9 @@
 
 <div class="letter-search">
     <ul class="rus-letters">
+        <li class="current"><a href="#"><fmt:message bundle="${msg}" key="letterSearch.chooseLetter"/></a></li>
         <c:forEach var="rus" items="${letters.getRusLetters()}">
             <li><a href="${pageContext.request.contextPath}/MusicsController?letter=${rus}"><c:out value="${rus}"/></a></li>
-        </c:forEach>
-    </ul>
-    <ul class="eng-letters">
-        <c:forEach var="eng" items="${letters.getEngLetters()}">
-            <li><a href="${pageContext.request.contextPath}/MusicsController?letter=${eng}"><c:out value="${eng}"/></a></li>
         </c:forEach>
     </ul>
 </div>
