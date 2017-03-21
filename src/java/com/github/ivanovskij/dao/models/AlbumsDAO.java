@@ -7,6 +7,7 @@ package com.github.ivanovskij.dao.models;
 
 import com.github.ivanovskij.beans.Albums;
 import com.github.ivanovskij.dao.ConnectionDAO;
+import com.github.ivanovskij.dao.exception.NoSuchEntityException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,6 +41,22 @@ public class AlbumsDAO {
             System.out.println("ERROR: AlbumsDAO->getAllAlbums()");
         }
         return albumsList;
+    }
+    
+    public long getIdByName(String name) throws NoSuchEntityException {
+        long id;
+        try {
+            Connection conn = ConnectionDAO.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("select idAlbums from shmusic.albums where name='" + name + "'");
+            while (rs.next()) {
+                id = rs.getLong("idAlbums");
+                return id;
+            }
+        } catch (SQLException | NamingException ex) {
+            System.out.println("ERROR: AlbumsDAO->getIdByName()");
+        }
+        throw new NoSuchEntityException("No album entity by name=" + name);
     }
     
     public List<Albums> getAllAlbums() {

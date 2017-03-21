@@ -9,7 +9,7 @@ import com.github.ivanovskij.beans.Music;
 import com.github.ivanovskij.dao.BeanDao;
 import com.github.ivanovskij.dao.ConnectionDAO;
 import com.github.ivanovskij.dao.exception.DaoBusinessException;
-import com.github.ivanovskij.dao.exception.NoSuchBeanException;
+import com.github.ivanovskij.dao.exception.NoSuchEntityException;
 import com.github.ivanovskij.enums.SearchType;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -106,8 +106,25 @@ public class MusicsDAO implements BeanDao {
         return getMusics(generalQuery.toString());
     }
 
+    public void addMusic(String name, long idAlbum, long idGenre) throws DaoBusinessException {
+        try {
+            Connection conn = ConnectionDAO.getConnection();
+            Statement stmt = conn.createStatement();
+            int col_row = stmt.executeUpdate("INSERT INTO `shmusic`.`music` (`name`, `Albums_idAlbums`, `Genre_idGenre`) VALUES "
+                    + "('" + name + "', "
+                    + "'" + idAlbum + "', "
+                    + "'" + idGenre + "');");
+            
+            if (col_row == 0) {
+                throw new DaoBusinessException("Not add music entity with data = {name=" + name + ", idAlbum=" + idAlbum + ", idGenre=" + idGenre + "}");
+            }
+        } catch (SQLException | NamingException ex) {
+            System.out.println("ERROR: MusicsDAO->addMusic()\n" + ex);
+        }
+    }
+    
     @Override
-    public Object selectById(long id) throws NoSuchBeanException, DaoBusinessException {
+    public Object selectById(long id) throws NoSuchEntityException, DaoBusinessException {
         return null;
     }
 

@@ -28,6 +28,10 @@
         <servlet-name>LocaleChangerController</servlet-name>
         <servlet-class>com.github.ivanovskij.controllers.servlets.LocaleChangerController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ActionMusicsController</servlet-name>
+        <servlet-class>com.github.ivanovskij.controllers.servlets.ActionMusicsController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MusicsController</servlet-name>
         <url-pattern>/MusicsController</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>LocaleChangerController</servlet-name>
         <url-pattern>/LocaleChangerController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActionMusicsController</servlet-name>
+        <url-pattern>/ActionMusicsController</url-pattern>
     </servlet-mapping>
     <!-- ================ ФИЛЬТРЫ ================= -->
     <filter>

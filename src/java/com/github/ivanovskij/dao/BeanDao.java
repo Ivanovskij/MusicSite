@@ -6,7 +6,7 @@
 package com.github.ivanovskij.dao;
 
 import com.github.ivanovskij.dao.exception.DaoBusinessException;
-import com.github.ivanovskij.dao.exception.NoSuchBeanException;
+import com.github.ivanovskij.dao.exception.NoSuchEntityException;
 import java.util.List;
 
 
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface BeanDao<T> {
     
-    T selectById(long id) throws NoSuchBeanException, DaoBusinessException;
+    T selectById(long id) throws NoSuchEntityException, DaoBusinessException;
     
     List<T> selectAll() throws DaoBusinessException;
 }

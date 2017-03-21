@@ -41,8 +41,16 @@ public class MusicsController extends HttpServlet {
                 return;
             } else if (request.getParameter("letter") != null) {
                 String letter = request.getParameter("letter");
+                
                 final MusicsDAO musicsDAO = new MusicsDAO();
-                List<Music> listMusics = musicsDAO.getMusicsByLetter(letter);
+                List<Music> listMusics;
+                
+                if (letter.equals("?")) {
+                    listMusics = musicsDAO.getAllMusics();
+                } else {
+                    listMusics = musicsDAO.getMusicsByLetter(letter);
+                }
+
                 request.getSession().setAttribute(ATTRIBUTE_MODEL_TO_VIEW, listMusics);
                 //request.getRequestDispatcher(PAGE_SUCCESS).forward(request, response);
                 response.sendRedirect(PAGE_SUCCESS);
