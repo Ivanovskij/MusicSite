@@ -1,8 +1,0 @@
-<%@ page pageEncoding="UTF-8" %>
-<div class="popularity">
-    <ul>
-        <li><a href="${pageContext.request.contextPath}/MusicsController?genre_id=-1"><fmt:message bundle="${msg}" key="popularity.newMusics"/></a></li>
-        <li><a href="popular"><fmt:message bundle="${msg}" key="popularity.popular"/></a></li>
-        <li><a href="rating"><fmt:message bundle="${msg}" key="popularity.rating"/></a></li>
-    </ul>
-</div>
