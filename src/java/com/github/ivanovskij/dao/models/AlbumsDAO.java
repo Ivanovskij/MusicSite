@@ -29,6 +29,8 @@ public class AlbumsDAO {
             Connection conn = ConnectionDAO.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
+            
+            albumsList.clear();
             while (rs.next()) {
                 Albums albums = new Albums();
                 albums.setIdAlbums(rs.getLong("idAlbums"));
@@ -65,5 +67,19 @@ public class AlbumsDAO {
                            + "inner join groups as gr "
                            + "on alb.Group_idGroup = gr.idGroups "
                            + "order by alb.name");
+    }
+    
+    public int getCountAllAlbums() {
+        int col_row = 0;
+        try {
+            Connection conn = ConnectionDAO.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("select idAlbums from albums");
+            rs.last();
+            col_row = rs.getRow();
+        } catch (SQLException | NamingException ex) {
+            System.out.println("ERROR: AlbumsDAO->getCountAllAlbums()\n" + ex);
+        }
+        return col_row;
     }
 }

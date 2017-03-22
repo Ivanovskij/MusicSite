@@ -10,7 +10,6 @@
 
 <%@include file="../WEB-INF/jspf/Search.jspf" %>
 <%@include file="../WEB-INF/jspf/LetterSearch.jspf" %>
-<%@include file="../WEB-INF/jspf/Popularity.jspf" %>
 
 <content>
     <%@include file="../WEB-INF/jspf/RightMenu.jspf" %>

@@ -4,7 +4,9 @@
     Author     : IOAdmin
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="allMusics" scope="session" class="com.github.ivanovskij.dao.models.MusicsDAO"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +22,6 @@
             <div class="top-panel-wrap">
                 <ul>
                     <li><a href="io-admin.jsp">Рабочий стол</a></li>
-                    <li><a href="#">Пользователь</a></li>
                     <li><a href="${pageContext.request.contextPath}/UserAuthController?logout=true">Выход</a></li>
                 </ul>
             </div>
@@ -39,31 +40,14 @@
                 </div>
                 <div class="right-content">
                     <div class="line-box"></div>
-                    <div class="search-music">
-                        <form>
-                            <input type="search" class="search-text" name="search" placeholder="Поиск...">
-                            <select class="select-box">
-                                <option>По названию</option>
-                                <option>По автору</option>
-                            </select>
-                            <input type="submit" class="button" name="submit" value="Поиск">
-                        </form>
-                        <div class="clear"></div>
-                    </div>
                     <div class="new-musics">
-                        <h2>Музыка:</h2>
-                        <a href="delete" class="link-update">Удалить</a>
+                        <h2>Удаление:</h2>
                         <div class="music-wrap">
                             <ul>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
+                                <c:forEach var="m" items="${allMusics.getAllMusics()}">
+                                    <li><a href="${pageContext.request.contextPath}/ActionMusicsController?delete=true&id=${m.idMusic}">${m.name}</a></li>
+                                </c:forEach>
                             </ul>
-                            <form action="GET">
-                                <input type="radio" name="radio-update">
-                            </form>
                         </div>
                     </div>
                 </div>

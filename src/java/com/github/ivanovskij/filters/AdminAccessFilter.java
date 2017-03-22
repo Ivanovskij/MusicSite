@@ -5,6 +5,7 @@
  */
 package com.github.ivanovskij.filters;
 
+import com.github.ivanovskij.beans.User;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -17,33 +18,31 @@ import javax.servlet.http.HttpSession;
  *
  * @author IOAdmin
  */
-public class CheckSessionFilter extends HttpBaseFilter {
+public class AdminAccessFilter extends HttpBaseFilter {
 
-    private static final String NOT_AUTHORIZE_PAGE = "pages/musics.jsp";
-    
-    private String div_user;
-    private String div_auth;
-    
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        div_user = filterConfig.getInitParameter("displayUser");
-        div_auth = filterConfig.getInitParameter("displayAuth");
     }
 
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpSession session = request.getSession();
-        if (session == null || session.isNew() || session.getAttribute("userAuth") == null) {
-            session.setAttribute("displayUser", div_user);
-            session.setAttribute("displayAuth", div_auth);
-        }
+        HttpSession session = request.getSession(false);
         
+        response.setCharacterEncoding("utf-8");
+        if (session.getAttribute("userAuth") != null) {
+            User user = (User) session.getAttribute("userAuth");
+            if (!user.getName().equals("root")) {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Forbidden, доступ запрещен");
+            }
+        } else {
+            // если session.getAttribute("userAuth") == null => его не существует
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Forbidden, доступ запрещен");
+        }
+
         chain.doFilter(request, response);
     }
 
     @Override
     public void destroy() {
-        // NOP
     }
-    
 }

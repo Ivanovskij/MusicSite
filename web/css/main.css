@@ -13,7 +13,8 @@ html, body {
 }
 
 body {
-    background-color: #F0F0F0;
+/*    background: url(../img/bg.png) repeat;*/
+    background-color: #f0f0f0;
 }
 
 a {
@@ -25,11 +26,17 @@ ul {
 }
 
 #wrap {
+    background: url(../img/bg-wrap.jpg) repeat;
+    -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 
+        0 0 40px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 
+        0 0 40px rgba(0, 0, 0, 0.1);
     height: 100%;
     height: auto !important;
     min-height: 100%;
     max-width: 1000px;
     margin: 0 auto;
+    padding: 4px 4px;
 }
 
 div.clear {
@@ -68,7 +75,10 @@ div.clear {
 /* ========================== TOP-PANEL =================== */
 div.top-panel {
     background: #D12A27;
-    box-shadow: inset 0 -1px 3px #fff;
+    -webkit-box-shadow: 2px 0 26px rgba(0, 0, 0, 0.8),
+        inset 0 0 5px rgba(0, 0, 0, 0.8);
+    box-shadow: 2px 0 26px rgba(0, 0, 0, 0.8),
+        inset 0 0 5px rgba(0, 0, 0, 0.8);
     margin-bottom: 20px;
     width: 100%;
 }
@@ -160,7 +170,7 @@ div.auth {
 /* ========================== HEADER =================== */
 header {
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 header .logo {
@@ -173,7 +183,7 @@ header .logo {
 
 /* ========================== SEARCH =================== */
 div.search {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-size: 0;
 }
 
@@ -184,30 +194,33 @@ div.search {
     outline: none;
     width: 100%;
 }
-.search-text:hover, .select-box:hover, .button:hover {
-    border: 2px solid #E96161;
+.search-text:hover, .select-box:hover {
+    border: 2px solid #CEEEFB;
+}
+.search-text:focus, .select-box:focus {
+    border: 2px solid #CEEEFB;
 }
 
 .search-text {
-    margin-right: 5px;
+    margin-right: 9px;
     padding: 10px 0 10px 10px;
-    max-width: 710px;
+    width: 68%;
 }
 
 .select-box {
-    margin-right: 5px;
+    margin-right: 9px;
     padding: 9px 4px;
-    max-width: 140px;
+    width: 15%;
 }
 
 .button {
     background: #fff;
     color: #000;
     height: 39px;
-    max-width: 140px;
+    width: 15%;
 }
 .button:hover {
-    background: #D12A27;
+    background: #CEEEFB;
     color: #fff;
     cursor: pointer;
 }
@@ -216,7 +229,7 @@ div.search {
 div.letter-search {
     background: #fff;
     border: 2px solid #e2e2e2;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 div.letter-search .rus-letters {
@@ -252,24 +265,9 @@ div.letter-search li:last-child a {
     border-right: none;
 }
 
-/* ========================== POPULARITY =================== */
-div.popularity {
-    background: #fff;
-    border: 2px solid #e2e2e2;
-    margin-bottom: 20px;
-    padding: 5px 5px;
-}
-
-div.popularity li {
-    display: inline-block;
-    margin-right: 10px;
-}
-
-
 /* ========================== CONTENT =================== */
 content {
     display: block;
-    margin-bottom: 30px;
 }
 
 /********* right-menu *******/
@@ -277,7 +275,7 @@ div.right-menu {
     background: #fff;
     border: 2px solid #e2e2e2;
     float: right;
-    height: 824px;
+    height: 820px;
     margin-left: 15px;
     width: 200px;
 }
@@ -381,9 +379,13 @@ div.new-albums li p {
 /* ========================== FOOTER =================== */
 footer {
     background: #D12A27;
-    box-shadow: inset 0 1px 3px #fff;
+    -webkit-box-shadow: -2px 0 26px rgba(0, 0, 0, 0.8),
+        inset 0 0 5px rgba(0, 0, 0, 0.8);
+    box-shadow: -2px 0 26px rgba(0, 0, 0, 0.8),
+        inset 0 0 5px rgba(0, 0, 0, 0.8);
     display: block;
     height: 40px;
+    margin-top: 20px;
     width: 100%;
 }
 
@@ -403,18 +405,20 @@ div.footer-wrap p {
 /* ПК, ноутбуки и т.д. */
 @media screen and (max-width: 992px) {
     .search-text {
-        max-width: none;
         width: 65%;
     }
     
     .select-box, .button {
-        max-width: none;
-        width: 16.5%;
+        width: 16.3%;
     } 
 }
 
 /* планшеты */
 @media screen and (max-width: 768px) {
+    .top-panel {
+        padding-bottom: 3px;
+    }
+    
     div.auth, div.user {
         clear: both;
         float: none;

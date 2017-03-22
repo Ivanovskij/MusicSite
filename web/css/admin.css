@@ -108,7 +108,7 @@ content {
     background: #fff;
     float: left;
     height: 641px;
-    overflow: hidden;
+    overflow: auto;
     width: 738px;
 }
 
@@ -116,24 +116,17 @@ div.line-box {
     background: #354052;
     border-bottom: 1px solid #555555;
     height: 58px;
-    margin-bottom: 10px;
 }
 
 div.info-wrap {
     background: #FBF5EF;
     border-bottom: 1px solid #555555;
-    margin-top: -10px;
-    margin-bottom: 10px;
 }
 
 p.info-text {
     font-size: 14px;
     font-weight: bold;
     padding: 5px 10px;
-}
-
-div.new-musics {
-    overflow: auto;
 }
 
 div.new-musics h2 {
@@ -161,6 +154,14 @@ div.new-musics li a {
 
 
 /********** right-content, ADD.HTML **********/
+div.add-text h2 {
+    background: #e2e2e2;
+    color: #333333;
+    font-size: 19px;
+    padding: 5px 5px;
+    text-align: center;
+}
+
 div.form-add-wrap {
     display: block;
     margin: 0 auto;
@@ -168,22 +169,22 @@ div.form-add-wrap {
     width: 430px;
 }
 
-div.form-add-wrap label {
+label {
     display: block;
-    margin-bottom: 5px;
+    margin: 2px 2px;
 }
 
 .input, .select-box, .button {
     border: 1px solid #e2e2e2;
     border-radius: 5px;
+    font-size: 15px;
     outline: none;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .input {
     border: 1px solid #e2e2e2;
     border-radius: 5px;
-    font-size: 15px;
     outline: none;
     padding: 8px 10px;
     width: 400px;
@@ -203,33 +204,73 @@ div.form-add-wrap label {
 }
 
 /********** right-content, UPDATE.HTML **********/
-div.search-music {
-    margin: 0 auto;
-    width: 655px;
-}
-
-div.new-musics .link-update {
-    background: #FBF5EF;
+div.new-musics li a {
+    color: #000;
     display: block;
-    margin-bottom: 5px;
-    padding: 5px 5px;
+    font-size: 14px;
+    padding: 10px 10px;
 }
-div.new-musics .link-update:hover {
-    background: #16A4FA;
+
+div#popupUpdate {
+    background: rgba(0,0,0,.3);
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    -webkit-animation: animationPopupUdate .3s;
+        -moz-animation: animationPopupUdate .3s;
+            -ms-animation: animationPopupUdate .3s;
+                -o-animation: animationPopupUdate .3s;
+                    animation: animationPopupUdate .3s;
+}
+
+div#popupUpdate:target {
+    pointer-events: auto;
+    display: block;
+}
+
+div.popup-update-wrap {
+    background: #fff;
+    border-radius: 5px;
+    height: 500px;
+    margin: 10% auto;
+    padding: 10px;
+    width: 500px;
+}
+
+.form-update {
+    border: 1px solid #e2e2e2;
+    margin: 10% auto;
+    padding: 10px;
+    width: 425px;
+}
+
+div.popup-update-wrap .button {
+    width: 200px;
+}
+
+.cancel-update {
+    background: #555555;
+    border: 1px solid #e2e2e2;
+    border-radius: 5px;
     color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    padding: 7px 20px;
 }
 
-div.search-music .search-text {
-    margin-right: 5px;
-    padding: 10px 0 10px 10px;
-    width: 400px;
-}
-
-div.search-music .select-box  {
-    width: 120px;
-}
-div.search-music .button {
-    width: 120px;
+/**** Animation *****/
+@-webkit-keyframes animationPopupUdate {
+    0% {
+        -webkit-transform: scale(0.5);
+    }
+    100% {
+        -webkit-transform: scale(1);
+    }
+        
 }
 
 /********** right-content, DELETE.HTML **********/

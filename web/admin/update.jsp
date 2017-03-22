@@ -4,13 +4,18 @@
     Author     : IOAdmin
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="allMusics" scope="session" class="com.github.ivanovskij.dao.models.MusicsDAO"/>
+<jsp:useBean id="genres" scope="application" class="com.github.ivanovskij.dao.models.GenresDAO"/>
+<jsp:useBean id="albums" scope="request" class="com.github.ivanovskij.dao.models.AlbumsDAO"/>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Обновить | IO Admin Panel</title>
         <link rel="stylesheet" type="text/css" href="../css/admin.css">
+        <script type="text/javascript" src="../js/handler.js"></script>
         <!--[if lt IE 9]>
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
@@ -20,13 +25,12 @@
             <div class="top-panel-wrap">
                 <ul>
                     <li><a href="io-admin.jsp">Рабочий стол</a></li>
-                    <li><a href="#">Пользователь</a></li>
                     <li><a href="${pageContext.request.contextPath}/UserAuthController?logout=true">Выход</a></li>
                 </ul>
             </div>
             <div class="clear"></div>
         </div>
-        
+
         <div id="wrap">
             <content>
                 <div class="left-menu">
@@ -39,32 +43,43 @@
                 </div>
                 <div class="right-content">
                     <div class="line-box"></div>
-                    <div class="search-music">
-                        <form>
-                            <input type="search" class="search-text" name="search" placeholder="Поиск...">
-                            <select class="select-box">
-                                <option>По названию</option>
-                                <option>По автору</option>
-                            </select>
-                            <input type="submit" class="button" name="submit" value="Поиск">
-                        </form>
-                        <div class="clear"></div>
-                    </div>
                     <div class="new-musics">
-                        <h2>Музыка:</h2>
-                        <a href="update" class="link-update">Редактировать</a>
+                        <h2>Редактирование:</h2>
                         <div class="music-wrap">
                             <ul>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
+                                <c:forEach var="m" items="${allMusics.getAllMusics()}">
+                                    <li><a href="${pageContext.request.contextPath}/ActionMusicsController?getMusic=true&id=${m.idMusic}">${m.name}</a></li>
+                                </c:forEach>    
                             </ul>
-                            <form action="GET">
-                                <input type="radio" name="radio-update">
-                            </form>
                         </div>
+
+                        <!-- default: display: none -->
+                        <div id="popupUpdate">
+                            <div class="popup-update-wrap">
+                                <form class="form-update" action="${pageContext.request.contextPath}/ActionMusicsController">
+                                    <label for="idMusic" class="label">ID: </label>
+                                    <input type="text" class="input" name="idMusic" value="${mUpdate.idMusic}" readonly/>
+                                    <label for="name" class="label">Название: </label>
+                                    <input type="text" class="input" name="name" value="${mUpdate.name}" required=""/>
+                                    <label for="album" class="label">Альбом:</label>
+                                    <select class="select-box" name="album" required>
+                                        <c:forEach var="alb" items="${albums.getAllAlbums()}">
+                                            <option><c:out value="${alb.name}"/></option>
+                                        </c:forEach>
+                                    </select>
+                                    <label for="genre" class="label">Жанр:</label>
+                                    <select name="genre" class="select-box" required>
+                                        <c:forEach var="g" items="${genres.getGenreList()}">
+                                            <option><c:out value="${g.name}"/></option>
+                                        </c:forEach>
+                                    </select>
+
+                                    <a class="cancel-update" href="#close">Отмена</a>
+                                    <input type="submit" class="button" name="update" value="Редактировать" required>
+                                </form>
+                            </div>
+                        </div> 
+                        <!-- end popupUpdate -->
                     </div>
                 </div>
                 <div class="clear"></div>

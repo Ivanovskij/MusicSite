@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="newMusics" scope="session" class="com.github.ivanovskij.dao.models.MusicsDAO"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,7 +22,6 @@
             <div class="top-panel-wrap">
                 <ul>
                     <li><a href="io-admin.jsp">Рабочий стол</a></li>
-                    <li><a href="#">Юзер</a></li>
                     <li><a href="${pageContext.request.contextPath}/UserAuthController?logout=true">Выход</a></li>
                 </ul>
             </div>
@@ -41,15 +41,13 @@
                 <div class="right-content">
                     <div class="line-box"></div>
                     <div class="info-wrap">
-                        <p class="info-text">Количество музыки: info</p>
-                        <p class="info-text">Количество альбомов: info</p>
-                        <p class="info-text">Популярная музыка: info</p>
-                        <p class="info-text">Рейтинговая музыка: info</p>
+                        <p class="info-text">Количество музыки: ${countAllMusics}</p>
+                        <p class="info-text">Количество альбомов: ${countAllAlbums}</p>
                     </div>
                     <div class="new-musics">
                         <h2>Новая музыка:</h2>
                         <ul>
-                            <c:forEach var="m" items="${listMusics}">
+                            <c:forEach var="m" items="${newMusics.getMusicsByLimit(0, 15)}">
                                 <li><a href="musics?music_id=${m.idMusic}"><c:out value="${m.name}"/></a></li>
                             </c:forEach>
                         </ul>

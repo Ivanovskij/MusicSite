@@ -35,6 +35,8 @@ public class MusicsDAO implements BeanDao {
             Connection conn = ConnectionDAO.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
+
+            musicList.clear();
             while (rs.next()) {
                 Music music = new Music();
                 music.setIdMusic(rs.getLong("idMusic"));
@@ -44,7 +46,7 @@ public class MusicsDAO implements BeanDao {
                 musicList.add(music);
             }
         } catch (SQLException | NamingException ex) {
-            System.out.println("ERROR: MusicsDAO->getAllMusics()\n" + ex);
+            System.out.println("ERROR: MusicsDAO->getMusics()\n" + ex);
         }
         return musicList;
     }
@@ -57,6 +59,16 @@ public class MusicsDAO implements BeanDao {
                 + "inner join genre g "
                 + "on g.idGenre = m.Genre_idGenre "
                 + "order by m.name");
+    }
+
+    public List<Music> getMusicsByLimit(int limitFrom, int limitTo) {
+        return getMusics("select m.idMusic, m.name, alb.name as albums, g.name as genre "
+                + "from music as m "
+                + "inner join albums alb "
+                + "on alb.idAlbums = m.Albums_idAlbums "
+                + "inner join genre g "
+                + "on g.idGenre = m.Genre_idGenre "
+                + "order by idMusic desc limit " + limitFrom + ", " + limitTo);
     }
 
     public List<Music> getMusicsByGenre(long genre_id) {
@@ -106,6 +118,20 @@ public class MusicsDAO implements BeanDao {
         return getMusics(generalQuery.toString());
     }
 
+    public void delMusic(long id) throws DaoBusinessException {
+        try {
+            Connection conn = ConnectionDAO.getConnection();
+            Statement stmt = conn.createStatement();
+            int col_row = stmt.executeUpdate("DELETE FROM `shmusic`.`music` WHERE idMusic=" + id);
+
+            if (col_row == 0) {
+                throw new DaoBusinessException("Error del music entity with id=" + id);
+            }
+        } catch (SQLException | NamingException ex) {
+            System.out.println("ERROR: MusicsDAO->delMusic()\n" + ex);
+        }
+    }
+
     public void addMusic(String name, long idAlbum, long idGenre) throws DaoBusinessException {
         try {
             Connection conn = ConnectionDAO.getConnection();
@@ -114,7 +140,7 @@ public class MusicsDAO implements BeanDao {
                     + "('" + name + "', "
                     + "'" + idAlbum + "', "
                     + "'" + idGenre + "');");
-            
+
             if (col_row == 0) {
                 throw new DaoBusinessException("Not add music entity with data = {name=" + name + ", idAlbum=" + idAlbum + ", idGenre=" + idGenre + "}");
             }
@@ -122,10 +148,50 @@ public class MusicsDAO implements BeanDao {
             System.out.println("ERROR: MusicsDAO->addMusic()\n" + ex);
         }
     }
-    
+
+    public void updateMusic(long idMusic, String name, long idAlbum, long idGenre) throws DaoBusinessException {
+        try {
+            Connection conn = ConnectionDAO.getConnection();
+            Statement stmt = conn.createStatement();
+            int col_row = stmt.executeUpdate("UPDATE `shmusic`.`music` SET `name`='" + name + "', "
+                    + "`Albums_idAlbums`=" + idAlbum + ", "
+                    + "`Genre_idGenre`=" + idGenre + " "
+                    + "WHERE idMusic=" + idMusic);
+            
+            if (col_row == 0) {
+                throw new DaoBusinessException("Not update music entity with data = {name=" + name + ", idAlbum=" + idAlbum + ", idGenre=" + idGenre + "}");
+            }
+        } catch (SQLException | NamingException ex) {
+            System.out.println("ERROR: MusicsDAO->updateMusic()\n" + ex);
+        }
+    }
+
+    public int getCountAllMusics() {
+        int col_row = 0;
+        try {
+            Connection conn = ConnectionDAO.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("select idMusic from music");
+            rs.last();
+            col_row = rs.getRow();
+        } catch (SQLException | NamingException ex) {
+            System.out.println("ERROR: MusicsDAO->getCountAllMusics()\n" + ex);
+        }
+        return col_row;
+    }
+
     @Override
     public Object selectById(long id) throws NoSuchEntityException, DaoBusinessException {
-        return null;
+        List<Music> OneMusic = getMusics("select m.idMusic, m.name, alb.name as albums, g.name as genre from music as m, albums as alb, genre as g "
+                + "where m.Albums_idAlbums = alb.idAlbums and "
+                + "m.Genre_idGenre = g.idGenre and "
+                + "m.idMusic=" + id + "");
+
+        if (OneMusic.get(0) == null) {
+            throw new NoSuchEntityException("No music entity in list OneMusic");
+        }
+
+        return OneMusic.get(0);
     }
 
     @Override

@@ -24,7 +24,6 @@
             <div class="top-panel-wrap">
                 <ul>
                     <li><a href="io-admin.jsp">Рабочий стол</a></li>
-                    <li><a href="#">Пользователь</a></li>
                     <li><a href="${pageContext.request.contextPath}/UserAuthController?logout=true">Выход</a></li>
                 </ul>
             </div>
@@ -43,6 +42,9 @@
                 </div>
                 <div class="right-content">
                     <div class="line-box"></div>
+                    <div class="add-text">
+                        <h2>Добавление:</h2>
+                    </div>
                     <div class="form-add-wrap">
                         <form action="${pageContext.request.contextPath}/ActionMusicsController" method="GET">
                             <label for="name" class="label">Название: </label>
@@ -57,11 +59,9 @@
                             <select name="genre" class="select-box" required>
                                 <c:forEach var="g" items="${genres.getGenreList()}">
                                     <option><c:out value="${g.name}"/></option>
-                                    <option hidden><c:out value="${g.idGenre}"/></option>
                                 </c:forEach>
                             </select>
-                            <label class="label" hidden/>
-                            <input type="submit" class="button" name="submit" value="Добавить" required>
+                            <input type="submit" class="button" name="add" value="Добавить">
                         </form>
                     </div>
                 </div>
