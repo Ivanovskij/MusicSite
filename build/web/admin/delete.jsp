@@ -44,7 +44,7 @@
                         <h2>Удаление:</h2>
                         <div class="music-wrap">
                             <ul>
-                                <c:forEach var="m" items="${allMusics.getAllMusics()}">
+                                <c:forEach var="m" items="${allMusics.selectAll()}">
                                     <li><a href="${pageContext.request.contextPath}/ActionMusicsController?delete=true&id=${m.idMusic}">${m.name}</a></li>
                                 </c:forEach>
                             </ul>

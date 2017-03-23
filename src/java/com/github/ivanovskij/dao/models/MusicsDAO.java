@@ -6,7 +6,6 @@
 package com.github.ivanovskij.dao.models;
 
 import com.github.ivanovskij.beans.Music;
-import com.github.ivanovskij.dao.BeanDao;
 import com.github.ivanovskij.dao.ConnectionDAO;
 import com.github.ivanovskij.dao.exception.DaoBusinessException;
 import com.github.ivanovskij.dao.exception.NoSuchEntityException;
@@ -23,14 +22,35 @@ import javax.naming.NamingException;
  *
  * @author IOAdmin
  */
-public class MusicsDAO implements BeanDao {
+public class MusicsDAO extends BeanDao {
 
     private final List<Music> musicList = new ArrayList<>();
 
     public MusicsDAO() {
     }
 
-    private List<Music> getMusics(String query) {
+    @Override
+    public Object selectById(long id) 
+            throws NoSuchEntityException, DaoBusinessException {
+        List<Music> OneMusic = selectExecute("select m.idMusic, m.name, alb.name as albums, g.name as genre from music as m, albums as alb, genre as g "
+                + "where m.Albums_idAlbums = alb.idAlbums and "
+                + "m.Genre_idGenre = g.idGenre and "
+                + "m.idMusic=" + id + "");
+
+        if (OneMusic.get(0) == null) {
+            throw new NoSuchEntityException("No music entity in list OneMusic");
+        }
+
+        return OneMusic.get(0);
+    }
+
+    @Override
+    public List selectAll() throws DaoBusinessException {
+        return getAllMusics();
+    }
+
+    @Override
+    public List selectExecute(String query) throws DaoBusinessException {
         try {
             Connection conn = ConnectionDAO.getConnection();
             Statement stmt = conn.createStatement();
@@ -46,13 +66,19 @@ public class MusicsDAO implements BeanDao {
                 musicList.add(music);
             }
         } catch (SQLException | NamingException ex) {
-            System.out.println("ERROR: MusicsDAO->getMusics()\n" + ex);
+            throw new DaoBusinessException("ERROR: MusicsDAO->getMusics()\n" + ex);
         }
         return musicList;
     }
 
-    public List<Music> getAllMusics() {
-        return getMusics("select m.idMusic, m.name, alb.name as albums, g.name as genre "
+    @Override
+    public long selectIdByName(String name) throws NoSuchEntityException {
+        return 0;
+        // NOP
+    }
+
+    private List<Music> getAllMusics() throws DaoBusinessException {
+        return selectExecute("select m.idMusic, m.name, alb.name as albums, g.name as genre "
                 + "from music as m "
                 + "inner join albums alb "
                 + "on alb.idAlbums = m.Albums_idAlbums "
@@ -61,8 +87,8 @@ public class MusicsDAO implements BeanDao {
                 + "order by m.name");
     }
 
-    public List<Music> getMusicsByLimit(int limitFrom, int limitTo) {
-        return getMusics("select m.idMusic, m.name, alb.name as albums, g.name as genre "
+    public List<Music> getMusicsByLimit(int limitFrom, int limitTo) throws DaoBusinessException {
+        return selectExecute("select m.idMusic, m.name, alb.name as albums, g.name as genre "
                 + "from music as m "
                 + "inner join albums alb "
                 + "on alb.idAlbums = m.Albums_idAlbums "
@@ -71,30 +97,30 @@ public class MusicsDAO implements BeanDao {
                 + "order by idMusic desc limit " + limitFrom + ", " + limitTo);
     }
 
-    public List<Music> getMusicsByGenre(long genre_id) {
+    public List<Music> getMusicsByGenre(long genre_id) throws DaoBusinessException {
         if (genre_id == -1) {
             return getAllMusics();
         }
-        return getMusics("select m.idMusic, m.name, alb.name as albums, g.name as genre from music as m, albums as alb, genre as g "
+        return selectExecute("select m.idMusic, m.name, alb.name as albums, g.name as genre from music as m, albums as alb, genre as g "
                 + "where m.Albums_idAlbums = alb.idAlbums and "
                 + "m.Genre_idGenre = g.idGenre and "
                 + "m.Genre_idGenre = " + genre_id + " "
                 + "order by m.name");
     }
 
-    public List<Music> getMusicsByLetter(String letter) {
+    public List<Music> getMusicsByLetter(String letter) throws DaoBusinessException {
         if (letter == null || letter.equals("")) {
             return getAllMusics();
         }
 
-        return getMusics("select m.idMusic, m.name, alb.name as albums, g.name as genre from music as m, albums as alb, genre as g "
+        return selectExecute("select m.idMusic, m.name, alb.name as albums, g.name as genre from music as m, albums as alb, genre as g "
                 + "where m.Albums_idAlbums = alb.idAlbums and "
                 + "m.Genre_idGenre = g.idGenre and "
                 + "substr(m.name,1,1) = '" + letter + "' "
                 + "order by m.name");
     }
 
-    public List<Music> getMusicsBySearch(String search, SearchType sType) {
+    public List<Music> getMusicsBySearch(String search, SearchType sType) throws DaoBusinessException {
         String searchStr = search.toLowerCase();
 
         if (searchStr.equals("")) {
@@ -115,9 +141,9 @@ public class MusicsDAO implements BeanDao {
             generalQuery.append(" where lower(alb.name) like '%").append(searchStr.toLowerCase()).append("%' order by alb.name");
         }
 
-        return getMusics(generalQuery.toString());
+        return selectExecute(generalQuery.toString());
     }
-
+    
     public void delMusic(long id) throws DaoBusinessException {
         try {
             Connection conn = ConnectionDAO.getConnection();
@@ -157,7 +183,7 @@ public class MusicsDAO implements BeanDao {
                     + "`Albums_idAlbums`=" + idAlbum + ", "
                     + "`Genre_idGenre`=" + idGenre + " "
                     + "WHERE idMusic=" + idMusic);
-            
+
             if (col_row == 0) {
                 throw new DaoBusinessException("Not update music entity with data = {name=" + name + ", idAlbum=" + idAlbum + ", idGenre=" + idGenre + "}");
             }
@@ -178,24 +204,5 @@ public class MusicsDAO implements BeanDao {
             System.out.println("ERROR: MusicsDAO->getCountAllMusics()\n" + ex);
         }
         return col_row;
-    }
-
-    @Override
-    public Object selectById(long id) throws NoSuchEntityException, DaoBusinessException {
-        List<Music> OneMusic = getMusics("select m.idMusic, m.name, alb.name as albums, g.name as genre from music as m, albums as alb, genre as g "
-                + "where m.Albums_idAlbums = alb.idAlbums and "
-                + "m.Genre_idGenre = g.idGenre and "
-                + "m.idMusic=" + id + "");
-
-        if (OneMusic.get(0) == null) {
-            throw new NoSuchEntityException("No music entity in list OneMusic");
-        }
-
-        return OneMusic.get(0);
-    }
-
-    @Override
-    public List selectAll() throws DaoBusinessException {
-        return getAllMusics();
     }
 }

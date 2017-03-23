@@ -4,7 +4,7 @@
 <div class="new-albums">
     <h2><fmt:message bundle="${msg}" key="content.newAlbums"/></h2>
     <ul>
-        <c:forEach var="alb" items="${albums.getAllAlbums()}">
+        <c:forEach var="alb" items="${albums.selectAll()}">
             <li>
                 <img src="../img/prev.jpg" alt="prev" width="100" height="147">
                 <p>

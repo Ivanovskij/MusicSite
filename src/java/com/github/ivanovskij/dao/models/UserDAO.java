@@ -7,6 +7,7 @@ package com.github.ivanovskij.dao.models;
 
 import com.github.ivanovskij.beans.User;
 import com.github.ivanovskij.dao.ConnectionDAO;
+import com.github.ivanovskij.dao.exception.DaoBusinessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +23,7 @@ public class UserDAO {
     public UserDAO() {
     }
 
-    public User login(String username, String userpass) {
+    public User login(String username, String userpass) throws DaoBusinessException {
         try {
             Connection conn = ConnectionDAO.getConnection();
             PreparedStatement pstmt = conn.prepareStatement("select * from user where name=? and pass=?");
@@ -41,7 +42,7 @@ public class UserDAO {
                 return user;
             }
         } catch (NamingException | SQLException ex) {
-            System.out.println("ERROR: UserDAO->login()" + ex);
+            throw new DaoBusinessException("ERROR: UserDAO->login()" + ex);
         }
 
         return null;

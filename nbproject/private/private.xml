@@ -5,19 +5,17 @@
             <url>src/java/com/github/ivanovskij/controllers/servlets/ActionMusicsController.java</url>
             <bookmark id="1">
                 <name/>
-                <line>33</line>
+                <line>0</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/Programming/Java/Projects-Web/Musics/MusicJSP/web/css/admin.css</file>
-            <file>file:/F:/Programming/Java/Projects-Web/Musics/MusicJSP/web/admin/delete.jsp</file>
-            <file>file:/F:/Programming/Java/Projects-Web/Musics/MusicJSP/web/admin/io-admin.jsp</file>
-            <file>file:/F:/Programming/Java/Projects-Web/Musics/MusicJSP/web/admin/update.jsp</file>
-            <file>file:/F:/Programming/Java/Projects-Web/Musics/MusicJSP/src/java/com/github/ivanovskij/dao/models/MusicsDAO.java</file>
-            <file>file:/F:/Programming/Java/Projects-Web/Musics/MusicJSP/src/java/com/github/ivanovskij/controllers/servlets/ActionMusicsController.java</file>
+            <file>file:/F:/Programming/Java/Projects-Web/Musics/MusicJSP/src/java/com/github/ivanovskij/filters/MusicAttributeSessionFilter.java</file>
+            <file>file:/F:/Programming/Java/Projects-Web/Musics/MusicJSP/src/java/com/github/ivanovskij/filters/CheckSessionFilter.java</file>
+            <file>file:/F:/Programming/Java/Projects-Web/Musics/MusicJSP/web/pages/musics.jsp</file>
+            <file>file:/F:/Programming/Java/Projects-Web/Musics/MusicJSP/web/WEB-INF/jspf/newAlbums.jspf</file>
         </group>
     </open-files>
 </project-private>

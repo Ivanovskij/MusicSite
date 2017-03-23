@@ -4,7 +4,7 @@
 <div class="right-menu">
     <h2 class="search-by-genres"><fmt:message bundle="${msg}" key="right.search_by_genre"/></h2>
     <ul>
-        <c:forEach var="g" items="${genres.getGenreList()}">
+        <c:forEach var="g" items="${genres.selectAll()}">
             <li><a href="${pageContext.request.contextPath}/MusicsController?genre_id=${g.idGenre}"><c:out value="${g.name}"/></a></li>
         </c:forEach>
     </ul>

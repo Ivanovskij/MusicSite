@@ -47,7 +47,7 @@
                         <h2>Редактирование:</h2>
                         <div class="music-wrap">
                             <ul>
-                                <c:forEach var="m" items="${allMusics.getAllMusics()}">
+                                <c:forEach var="m" items="${allMusics.selectAll()}">
                                     <li><a href="${pageContext.request.contextPath}/ActionMusicsController?getMusic=true&id=${m.idMusic}">${m.name}</a></li>
                                 </c:forEach>    
                             </ul>
@@ -63,13 +63,13 @@
                                     <input type="text" class="input" name="name" value="${mUpdate.name}" required=""/>
                                     <label for="album" class="label">Альбом:</label>
                                     <select class="select-box" name="album" required>
-                                        <c:forEach var="alb" items="${albums.getAllAlbums()}">
+                                        <c:forEach var="alb" items="${albums.selectAll()}">
                                             <option><c:out value="${alb.name}"/></option>
                                         </c:forEach>
                                     </select>
                                     <label for="genre" class="label">Жанр:</label>
                                     <select name="genre" class="select-box" required>
-                                        <c:forEach var="g" items="${genres.getGenreList()}">
+                                        <c:forEach var="g" items="${genres.selectAll()}">
                                             <option><c:out value="${g.name}"/></option>
                                         </c:forEach>
                                     </select>

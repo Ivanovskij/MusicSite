@@ -6,6 +6,7 @@
 package com.github.ivanovskij.filters;
 
 import com.github.ivanovskij.beans.Music;
+import com.github.ivanovskij.dao.exception.DaoBusinessException;
 import com.github.ivanovskij.dao.models.MusicsDAO;
 import java.io.IOException;
 import java.util.List;
@@ -33,10 +34,16 @@ public class MusicAttributeSessionFilter extends HttpBaseFilter {
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        if (session == null || session.isNew()) {
-            List<Music> listMusics = musicDao.getMusicsByLimit(0, 15);
-            session.setAttribute(ATTRIBUTE_MODEL_TO_VIEW, listMusics);
+        try {
+            if (session == null || session.isNew()) {
+                List<Music> listMusics = musicDao.getMusicsByLimit(0, 15);
+                session.setAttribute(ATTRIBUTE_MODEL_TO_VIEW, listMusics);
+            }
+        } catch (DaoBusinessException d) {
+            response.sendError(HttpServletResponse.SC_BAD_GATEWAY);
+            return;
         }
+        
         
         chain.doFilter(request, response);
     }

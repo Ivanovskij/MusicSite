@@ -7,6 +7,7 @@ package com.github.ivanovskij.dao.models;
 
 import com.github.ivanovskij.beans.Genre;
 import com.github.ivanovskij.dao.ConnectionDAO;
+import com.github.ivanovskij.dao.exception.DaoBusinessException;
 import com.github.ivanovskij.dao.exception.NoSuchEntityException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,21 +15,41 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.naming.NamingException;
 
 /**
  *
  * @author IOAdmin
  */
-public class GenresDAO {
-    
+public class GenresDAO extends BeanDao {
+
     private final List<Genre> genreList = new ArrayList<>();
 
     public GenresDAO() {
     }
-    
+
+    @Override
+    public Object selectById(long id) throws NoSuchEntityException, DaoBusinessException {
+        return null;
+        // NOP
+    }
+
+    @Override
+    public long selectIdByName(String name) throws NoSuchEntityException, DaoBusinessException {
+        return getIdByName(name);
+    }
+
+    @Override
+    public List selectExecute(String query) throws DaoBusinessException {
+        return null;
+        // NOP
+    }
+
+    @Override
+    public List selectAll() throws DaoBusinessException {
+        return getGenreList();
+    }
+
     private List<Genre> getAllGenres() {
         try {
             Connection conn = ConnectionDAO.getConnection();
@@ -44,7 +65,8 @@ public class GenresDAO {
         return genreList;
     }
 
-    public long getIdByName(String name) throws NoSuchEntityException {
+    private long getIdByName(String name)
+            throws NoSuchEntityException, DaoBusinessException {
         long id;
         try {
             Connection conn = ConnectionDAO.getConnection();
@@ -55,12 +77,12 @@ public class GenresDAO {
                 return id;
             }
         } catch (SQLException | NamingException ex) {
-            System.out.println("ERROR: Genres->getIdByName()");
+            throw new DaoBusinessException("ERROR: Genres->getIdByName()", ex);
         }
         throw new NoSuchEntityException("No genre entity by name=" + name);
     }
-    
-    public List<Genre> getGenreList() {
+
+    private List<Genre> getGenreList() {
         if (!genreList.isEmpty()) {
             return genreList;
         }

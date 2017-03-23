@@ -6,7 +6,10 @@
 package com.github.ivanovskij.controllers;
 
 import com.github.ivanovskij.beans.User;
+import com.github.ivanovskij.dao.exception.DaoBusinessException;
 import com.github.ivanovskij.dao.models.UserDAO;
+import com.github.ivanovskij.utils.AttributesToView;
+import com.github.ivanovskij.utils.PageView;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,16 +21,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author IOAdmin
  */
 public class UserAuthController extends HttpServlet {
-    
-    private static final String DISPLAY_DIV_AUTH_NONE = "none";
-    private static final String DISPLAY_DIV_AUTH_BLOCK = "block";
-    private static final String ATTRIBUTE_MODEL_DIV_AUTH = "displayAuth";
-    private static final String ATTRIBUTE_MODEL_DIV_USER = "displayUser";
-    
-    private static final String PAGE_SUCCESS = "pages/musics.jsp";
-    private static final String PAGE_ERROR = "error.jsp";
-    
-    private static final String ATTRIBUTE_MODEL_LOCALE = "currentLocale";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -41,34 +34,28 @@ public class UserAuthController extends HttpServlet {
                 String username = request.getParameter("userlogin");
                 String userpass = request.getParameter("userpass");
                         
-                UserDAO userDAO = new UserDAO();
-                User user = userDAO.login(username, userpass);
+                final UserDAO userDAO = new UserDAO();
+                final User user = userDAO.login(username, userpass);
                 
                 if (user != null) {
-                    request.getSession().setAttribute("userAuth", user);
-                    request.getSession().setAttribute(ATTRIBUTE_MODEL_LOCALE, user.getLang());
-                    request.getSession().setAttribute(ATTRIBUTE_MODEL_DIV_AUTH, DISPLAY_DIV_AUTH_NONE);
-                    request.getSession().setAttribute(ATTRIBUTE_MODEL_DIV_USER, DISPLAY_DIV_AUTH_BLOCK);
-                    response.sendRedirect(request.getContextPath() + "/" + PAGE_SUCCESS);
+                    request.getSession().setAttribute(AttributesToView.ATTRIBUTE_MODEL_USER_AUTH, user);
+                    request.getSession().setAttribute(AttributesToView.ATTRIBUTE_MODEL_LOCALE, user.getLang());
+                    response.sendRedirect(request.getContextPath() + "/" + PageView.PAGE_SUCCESS_MUSICS);
                     return;
-                } else {
-                    request.getSession().setAttribute(ATTRIBUTE_MODEL_DIV_AUTH, DISPLAY_DIV_AUTH_BLOCK);
-                    request.getSession().setAttribute(ATTRIBUTE_MODEL_DIV_USER, DISPLAY_DIV_AUTH_NONE);
-                    // return; не нужно, чтобы кинулась ошибка: response.sendRedirect(PAGE_ERROR);
                 }
             }
             
             // LOGOUT
             if (request.getParameter("logout") != null) {
                 request.getSession().invalidate();
-                response.sendRedirect(request.getContextPath() + "/" + PAGE_SUCCESS);
+                response.sendRedirect(request.getContextPath() + "/" + PageView.PAGE_SUCCESS_MUSICS);
                 return;
             }
-        } catch (IOException ex) {
+        } catch (IOException | DaoBusinessException ex) {
             // NOP
         }
         // FAIL
-        response.sendRedirect(PAGE_ERROR);
+        response.sendRedirect(PageView.PAGE_ERROR);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

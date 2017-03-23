@@ -11,8 +11,9 @@ import com.github.ivanovskij.dao.exception.NoSuchEntityException;
 import com.github.ivanovskij.dao.models.AlbumsDAO;
 import com.github.ivanovskij.dao.models.GenresDAO;
 import com.github.ivanovskij.dao.models.MusicsDAO;
+import com.github.ivanovskij.utils.AttributesToView;
+import com.github.ivanovskij.utils.PageView;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,18 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author IOAdmin
  */
 public class ActionMusicsController extends HttpServlet {
-
-    private static final String PAGE_SUCCESS_ADD = "admin/add.jsp";
-    private static final String PAGE_SUCCESS_DELETE = "admin/delete.jsp";
-    private static final String PAGE_SUCCESS_UPDATE = "admin/update.jsp";
-    private static final String PAGE_SUCCESS_UPDATE_POPUP = "admin/update.jsp#popupUpdate";
-    private static final String PAGE_ERROR = "error.jsp";
     
-    private static final String ATTRIBUTE_MODEL_TO_VIEW = "listMusics";
-    private static final String ATTRIBUTE_MODEL_TO_VIEW_COUNT_MUSICS = "countAllMusics";
-    private static final String ATTRIBUTE_MODEL_TO_VIEW_COUNT_ALBUMS = "countAllAlbums";
-    private static final String ATTRIBUTE_MODEL_TO_VIEW_UPDATE = "mUpdate";
-
     private final GenresDAO genreDao = new GenresDAO();
     private final AlbumsDAO albumDao = new AlbumsDAO();
     private final MusicsDAO musicDao = new MusicsDAO();
@@ -51,20 +41,20 @@ public class ActionMusicsController extends HttpServlet {
                 String album = request.getParameter("album");
                 String genre = request.getParameter("genre");
                 
-                long idAlbum = albumDao.getIdByName(album);
-                long idGenre = genreDao.getIdByName(genre);
-
+                long idAlbum = albumDao.selectIdByName(album);
+                long idGenre = genreDao.selectIdByName(genre);
+                
                 musicDao.addMusic(name, idAlbum, idGenre);
 
                 int countAllMusics = musicDao.getCountAllMusics();
                 int countAllAlbums = albumDao.getCountAllAlbums();
-                request.getSession().setAttribute(ATTRIBUTE_MODEL_TO_VIEW_COUNT_MUSICS, countAllMusics);
-                request.getSession().setAttribute(ATTRIBUTE_MODEL_TO_VIEW_COUNT_ALBUMS, countAllAlbums);
+                request.getSession().setAttribute(AttributesToView.ATTRIBUTE_MODEL_VIEW_COUNT_MUSICS, countAllMusics);
+                request.getSession().setAttribute(AttributesToView.ATTRIBUTE_MODEL_VIEW_COUNT_ALBUMS, countAllAlbums);
                 
                 List<Music> listMusics = musicDao.getMusicsByLimit(0, 15);
-                request.getSession().setAttribute(ATTRIBUTE_MODEL_TO_VIEW, listMusics);
+                request.getSession().setAttribute(AttributesToView.ATTRIBUTE_MODEL_TO_VIEW_LIST_MUSICS, listMusics);
                 
-                response.sendRedirect(PAGE_SUCCESS_ADD);
+                response.sendRedirect(PageView.PAGE_SUCCESS_ADD);
                 return;
             } else if (request.getParameter("delete") != null) {
                 String idMusicStr = request.getParameter("id");
@@ -72,8 +62,8 @@ public class ActionMusicsController extends HttpServlet {
                     long id = Long.valueOf(idMusicStr);
                     musicDao.delMusic(id);
                     List<Music> listMusics = musicDao.getMusicsByLimit(0, 15);
-                    request.getSession().setAttribute(ATTRIBUTE_MODEL_TO_VIEW, listMusics);
-                    response.sendRedirect(PAGE_SUCCESS_DELETE);
+                    request.getSession().setAttribute(AttributesToView.ATTRIBUTE_MODEL_TO_VIEW_LIST_MUSICS, listMusics);
+                    response.sendRedirect(PageView.PAGE_SUCCESS_DELETE);
                     return;
                 } 
             } else if (request.getParameter("getMusic") != null) {
@@ -81,8 +71,8 @@ public class ActionMusicsController extends HttpServlet {
                 if (idMusicStr != null) {
                     long id = Long.valueOf(idMusicStr);
                     Music music = (Music) musicDao.selectById(id);
-                    request.getSession().setAttribute(ATTRIBUTE_MODEL_TO_VIEW_UPDATE, music);
-                    response.sendRedirect(PAGE_SUCCESS_UPDATE_POPUP);
+                    request.getSession().setAttribute(AttributesToView.ATTRIBUTE_MODEL_TO_VIEW_UPDATE, music);
+                    response.sendRedirect(PageView.PAGE_SUCCESS_UPDATE_POPUP);
                     return;
                 } 
             } else if (request.getParameter("update") != null) {
@@ -92,15 +82,15 @@ public class ActionMusicsController extends HttpServlet {
                 String album = request.getParameter("album");
                 String genre = request.getParameter("genre");
 
-                long idAlbum = albumDao.getIdByName(album);
-                long idGenre = genreDao.getIdByName(genre);
+                long idAlbum = albumDao.selectIdByName(album);
+                long idGenre = genreDao.selectIdByName(genre);
 
                 musicDao.updateMusic(id ,name, idAlbum, idGenre);
 
                 List<Music> listMusics = musicDao.getMusicsByLimit(0, 15);
-                request.getSession().setAttribute(ATTRIBUTE_MODEL_TO_VIEW, listMusics);
+                request.getSession().setAttribute(AttributesToView.ATTRIBUTE_MODEL_TO_VIEW_LIST_MUSICS, listMusics);
 
-                response.sendRedirect(PAGE_SUCCESS_UPDATE);
+                response.sendRedirect(PageView.PAGE_SUCCESS_UPDATE);
                 return;
             }
         } catch (NoSuchEntityException n) {
@@ -110,7 +100,7 @@ public class ActionMusicsController extends HttpServlet {
         }
         
         //FAIL
-        response.sendRedirect(PAGE_ERROR);
+        response.sendRedirect(PageView.PAGE_ERROR);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

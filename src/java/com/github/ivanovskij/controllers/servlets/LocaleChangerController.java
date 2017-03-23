@@ -5,6 +5,8 @@
  */
 package com.github.ivanovskij.controllers.servlets;
 
+import com.github.ivanovskij.utils.AttributesToView;
+import com.github.ivanovskij.utils.PageView;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Locale;
@@ -18,11 +20,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author IOAdmin
  */
 public class LocaleChangerController extends HttpServlet {
-
-    private static final String PAGE_SUCCESS = "pages/musics.jsp";
-    private static final String PAGE_ERROR = "error.jsp";
-    
-    private static final String ATTRIBUTE_MODEL_LOCALE = "currentLocale";
     
     private Locale currentLocale = new Locale("ru");
     
@@ -32,15 +29,15 @@ public class LocaleChangerController extends HttpServlet {
         try {
             if (request.getParameter("lang") != null && isLocale(request)) {
                 currentLocale = new Locale(request.getParameter("lang"));
-                request.getSession().setAttribute(ATTRIBUTE_MODEL_LOCALE, currentLocale);
-                response.sendRedirect(PAGE_SUCCESS);
+                request.getSession().setAttribute(AttributesToView.ATTRIBUTE_MODEL_LOCALE, currentLocale);
+                response.sendRedirect(PageView.PAGE_SUCCESS_MUSICS);
                 return;
             }
         } catch (Exception ex) {
             // NOP
         }
         // FAIL
-        response.sendRedirect(PAGE_ERROR);
+        response.sendRedirect(PageView.PAGE_ERROR);
     }
 
     private boolean isLocale(HttpServletRequest request) {
