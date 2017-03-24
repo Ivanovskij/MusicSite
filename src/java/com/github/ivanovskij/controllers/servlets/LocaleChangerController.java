@@ -27,7 +27,7 @@ public class LocaleChangerController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            if (request.getParameter("lang") != null && isLocale(request)) {
+            if (request.getParameter("lang") != null && isLocaleAttribute(request)) {
                 currentLocale = new Locale(request.getParameter("lang"));
                 request.getSession().setAttribute(AttributesToView.ATTRIBUTE_MODEL_LOCALE, currentLocale);
                 response.sendRedirect(PageView.PAGE_SUCCESS_MUSICS);
@@ -40,7 +40,7 @@ public class LocaleChangerController extends HttpServlet {
         response.sendRedirect(PageView.PAGE_ERROR);
     }
 
-    private boolean isLocale(HttpServletRequest request) {
+    private boolean isLocaleAttribute(HttpServletRequest request) {
         return request.getParameter("lang").equals("ru") || request.getParameter("lang").equals("en");
     }
 
